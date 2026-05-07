@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Jupyter (not used, but keep safe)
+.ipynb_checkpoints/
+
+# PySpark and Hadoop
+metastore_db/
+*.log
+spark-warehouse/
+
+# Data outputs
+data/raw/
+data/processed/
+outputs/
+
+# OS
+.DS_Store
+Thumbs.db
