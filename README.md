@@ -9,8 +9,9 @@ A modular PySpark backend with a Streamlit dashboard that analyzes job market tr
 - Data preprocessing pipeline with cleaning and validation
 - Analytics utilities for filtering, grouping, aggregation, and sorting
 - Spark SQL query module with reusable analytics queries
-- Streamlit dashboard with multi-page analytics
+- Streamlit dashboard with multi-page analytics (URL-based routing)
 - KPI cards and presentation-ready visualizations
+- Shared theme and page header components
 
 ## Tech Stack
 - Python 3.10+
@@ -21,6 +22,7 @@ A modular PySpark backend with a Streamlit dashboard that analyzes job market tr
 - seaborn
 - kagglehub
 - Streamlit
+- setuptools (for PySpark on newer Python versions)
 
 ## Folder Structure
 ```
@@ -30,6 +32,8 @@ app/
       sidebar.py
       charts.py
       metrics.py
+      layout.py
+      theme.py
    pages/
       dashboard.py
       salary_analysis.py
@@ -42,6 +46,7 @@ app/
     preprocess.py
     analytics.py
     sql_queries.py
+    app_state.py
 
 data/
   raw/
@@ -89,6 +94,37 @@ README.md
    streamlit run app/main.py
    ```
 
+## Windows Notes
+- PySpark is most stable with Java 17. If you see a `getSubject` security manager error, install JDK 17 and set `JAVA_HOME` accordingly.
+- If you see errors about `winutils.exe`, `HADOOP_HOME`, or `NativeIO$Windows.access0`, complete the Hadoop setup steps below.
+
+## Hadoop Setup (Windows)
+Spark on Windows requires `winutils.exe` and `hadoop.dll` for local file operations.
+
+1. Create a folder:
+   ```text
+   C:\hadoop\bin
+   ```
+2. Download the Hadoop Windows binaries that include:
+   - `winutils.exe`
+   - `hadoop.dll`
+
+   Use a Hadoop 3.3.x build (3.3.6 or 3.3.5). Place both files in:
+   ```text
+   C:\hadoop\bin
+   ```
+3. Set environment variables:
+   - `HADOOP_HOME = C:\hadoop`
+   - Add `C:\hadoop\bin` to your system `PATH`
+4. Open a new terminal and verify:
+   ```powershell
+   winutils.exe
+   ```
+5. Re-run preprocessing:
+   ```bash
+   python scripts/run_preprocessing.py
+   ```
+
 ## Dataset Information
 - Name: Data Science Job Salaries
 - Source: Kaggle
@@ -103,6 +139,7 @@ README.md
 - Multi-page Streamlit dashboard
 - Salary, remote work, experience, and location analysis pages
 - KPI cards, charts, and insights for presentations
+- Consistent hero-style headers across all pages
 
 ## Future Scope
 - Advanced dashboard filters

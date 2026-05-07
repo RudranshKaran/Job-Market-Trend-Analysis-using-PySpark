@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import streamlit as st
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql import functions as F
 
 from app.components.charts import bar_chart, histogram
+from app.components.layout import render_page_header
 from app.components.metrics import render_metric_cards
+from app.components.theme import apply_theme
+from app.utils.app_state import get_spark, load_data_or_stop
 from app.utils import analytics
 from app.utils import sql_queries
 
@@ -20,9 +24,19 @@ def _validate_columns(df) -> bool:
     return True
 
 
-def render_page(df, spark) -> None:
-    st.title("Salary Analysis")
-    st.caption("Explore salary distributions, top roles, and location-based pay trends.")
+def render_page(df: DataFrame | None = None, spark: SparkSession | None = None) -> None:
+    apply_theme()
+    if df is None:
+        df = load_data_or_stop()
+    if spark is None:
+        spark = get_spark()
+
+    render_page_header(
+        "Salary Analysis",
+        "Explore salary distributions, top roles, and location-based pay trends.",
+        "Compensation",
+        ["Pay bands", "Top roles", "Distributions"],
+    )
 
     if not _validate_columns(df):
         return
@@ -113,8 +127,18 @@ def render_page(df, spark) -> None:
 
     st.divider()
     st.subheader("Insights")
-    st.write(
-        "- Executive and senior roles show a clear salary premium.\n"
-        "- Salary distributions are right-skewed, indicating a long tail of high earners.\n"
-        "- A small number of countries consistently lead average salary benchmarks."
+    st.markdown(
+        """
+        <div class="insight-list">
+        <ul>
+            <li>Executive and senior roles show a clear salary premium.</li>
+            <li>Salary distributions are right-skewed, indicating a long tail of high earners.</li>
+            <li>A small number of countries consistently lead average salary benchmarks.</li>
+        </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
+
+
+render_page()

@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import streamlit as st
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql import functions as F
 
 from app.components.charts import bar_chart
+from app.components.layout import render_page_header
 from app.components.metrics import render_metric_cards
+from app.components.theme import apply_theme
+from app.utils.app_state import get_spark, load_data_or_stop
 from app.utils import analytics
 from app.utils import sql_queries
 
@@ -30,9 +34,19 @@ def _label_experience(level: str) -> str:
     return labels.get(level, level)
 
 
-def render_page(df, spark) -> None:
-    st.title("Experience Analysis")
-    st.caption("Compare job volume and salaries across experience levels.")
+def render_page(df: DataFrame | None = None, spark: SparkSession | None = None) -> None:
+    apply_theme()
+    if df is None:
+        df = load_data_or_stop()
+    if spark is None:
+        spark = get_spark()
+
+    render_page_header(
+        "Experience Analysis",
+        "Compare job volume and salaries across experience levels.",
+        "Seniority",
+        ["Experience mix", "Pay bands"],
+    )
 
     if not _validate_columns(df):
         return
@@ -78,8 +92,18 @@ def render_page(df, spark) -> None:
 
     st.divider()
     st.subheader("Insights")
-    st.write(
-        "- Senior and executive roles command the strongest salary bands.\n"
-        "- Entry-level roles dominate volume but trail in compensation.\n"
-        "- Experience level is one of the strongest predictors of pay."
+    st.markdown(
+        """
+        <div class="insight-list">
+        <ul>
+            <li>Senior and executive roles command the strongest salary bands.</li>
+            <li>Entry-level roles dominate volume but trail in compensation.</li>
+            <li>Experience level is one of the strongest predictors of pay.</li>
+        </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
+
+
+render_page()

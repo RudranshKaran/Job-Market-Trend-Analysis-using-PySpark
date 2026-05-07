@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import streamlit as st
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql import functions as F
 
 from app.components.charts import bar_chart, pie_chart
+from app.components.layout import render_page_header
 from app.components.metrics import render_metric_cards
+from app.components.theme import apply_theme
+from app.utils.app_state import get_spark, load_data_or_stop
 
 
 REQUIRED_COLUMNS = ["remote_ratio", "salary_in_usd"]
@@ -18,9 +22,19 @@ def _validate_columns(df) -> bool:
     return True
 
 
-def render_page(df, spark) -> None:
-    st.title("Remote Work Analysis")
-    st.caption("Understand remote, hybrid, and onsite job trends.")
+def render_page(df: DataFrame | None = None, spark: SparkSession | None = None) -> None:
+    apply_theme()
+    if df is None:
+        df = load_data_or_stop()
+    if spark is None:
+        spark = get_spark()
+
+    render_page_header(
+        "Remote Work Analysis",
+        "Understand remote, hybrid, and onsite job trends.",
+        "Flexibility",
+        ["Onsite vs Remote", "Salary impact"],
+    )
 
     if not _validate_columns(df):
         return
@@ -90,8 +104,18 @@ def render_page(df, spark) -> None:
 
     st.divider()
     st.subheader("Insights")
-    st.write(
-        "- Fully remote roles remain competitive with onsite salaries.\n"
-        "- Hybrid roles often sit between onsite and remote compensation ranges.\n"
-        "- Remote work continues to be a major hiring pattern across roles."
+    st.markdown(
+        """
+        <div class="insight-list">
+        <ul>
+            <li>Fully remote roles remain competitive with onsite salaries.</li>
+            <li>Hybrid roles often sit between onsite and remote compensation ranges.</li>
+            <li>Remote work continues to be a major hiring pattern across roles.</li>
+        </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
+
+
+render_page()

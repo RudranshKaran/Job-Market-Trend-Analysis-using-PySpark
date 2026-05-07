@@ -5,7 +5,19 @@ from typing import Iterable
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-sns.set_theme(style="whitegrid")
+sns.set_theme(
+    style="darkgrid",
+    rc={
+        "axes.facecolor": "#0f172a",
+        "figure.facecolor": "#0f172a",
+        "grid.color": "#1f2937",
+        "text.color": "#e2e8f0",
+        "axes.labelcolor": "#cbd5e1",
+        "xtick.color": "#94a3b8",
+        "ytick.color": "#94a3b8",
+        "axes.edgecolor": "#334155",
+    },
+)
 
 
 def bar_chart(
@@ -22,11 +34,13 @@ def bar_chart(
         return None
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.barplot(data=data, x=x, y=y, ax=ax, palette="crest")
-    ax.set_title(title)
+    sns.barplot(data=data, x=x, y=y, hue=x, ax=ax, palette="crest", legend=False)
+    ax.set_title(title, color="#e2e8f0")
     ax.set_xlabel(xlabel or x)
     ax.set_ylabel(ylabel or y)
     ax.tick_params(axis="x", rotation=rotation)
+    fig.patch.set_facecolor("#0f172a")
+    ax.set_facecolor("#0f172a")
     fig.tight_layout()
     return fig
 
@@ -42,9 +56,16 @@ def pie_chart(
         return None
 
     fig, ax = plt.subplots(figsize=figsize)
-    ax.pie(data[values], labels=data[labels], autopct="%1.0f%%", startangle=90)
-    ax.set_title(title)
+    ax.pie(
+        data[values],
+        labels=data[labels],
+        autopct="%1.0f%%",
+        startangle=90,
+        textprops={"color": "#e2e8f0"},
+    )
+    ax.set_title(title, color="#e2e8f0")
     ax.axis("equal")
+    fig.patch.set_facecolor("#0f172a")
     return fig
 
 
@@ -61,10 +82,12 @@ def histogram(
         return None
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.histplot(data[column], bins=bins, kde=True, ax=ax, color="#0ea5a4")
-    ax.set_title(title)
+    sns.histplot(data[column], bins=bins, kde=True, ax=ax, color="#14b8a6")
+    ax.set_title(title, color="#e2e8f0")
     ax.set_xlabel(xlabel or column)
     ax.set_ylabel(ylabel or "Count")
+    fig.patch.set_facecolor("#0f172a")
+    ax.set_facecolor("#0f172a")
     fig.tight_layout()
     return fig
 
@@ -82,9 +105,11 @@ def line_chart(
         return None
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.lineplot(data=data, x=x, y=y, marker="o", ax=ax, color="#0f766e")
-    ax.set_title(title)
+    sns.lineplot(data=data, x=x, y=y, marker="o", ax=ax, color="#22d3ee")
+    ax.set_title(title, color="#e2e8f0")
     ax.set_xlabel(xlabel or x)
     ax.set_ylabel(ylabel or y)
+    fig.patch.set_facecolor("#0f172a")
+    ax.set_facecolor("#0f172a")
     fig.tight_layout()
     return fig

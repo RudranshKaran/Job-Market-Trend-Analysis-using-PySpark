@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 import streamlit as st
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql import functions as F
 
 from app.components.charts import bar_chart, pie_chart
+from app.components.layout import render_page_header
 from app.components.metrics import render_metric_cards
+from app.components.theme import apply_theme
+from app.utils.app_state import get_spark, load_data_or_stop
 from app.utils import analytics
 
 
@@ -24,9 +28,19 @@ def _validate_columns(df) -> bool:
     return True
 
 
-def render_page(df, spark) -> None:
-    st.title("Job Market Trends Dashboard")
-    st.caption("Snapshot of job market metrics and high-level trends.")
+def render_page(df: DataFrame | None = None, spark: SparkSession | None = None) -> None:
+    apply_theme()
+    if df is None:
+        df = load_data_or_stop()
+    if spark is None:
+        spark = get_spark()
+
+    render_page_header(
+        "Dashboard",
+        "Snapshot of job market metrics and high-level trends.",
+        "Overview",
+        ["KPIs", "Hiring trends", "Remote mix"],
+    )
 
     if not _validate_columns(df):
         return
@@ -110,8 +124,18 @@ def render_page(df, spark) -> None:
 
     st.divider()
     st.subheader("Quick Insights")
-    st.write(
-        "- Fully remote roles account for a meaningful share of the dataset.\n"
-        "- Salary distribution is skewed toward mid-to-senior roles.\n"
-        "- A small set of countries dominate hiring volume."
+    st.markdown(
+        """
+        <div class="insight-list">
+        <ul>
+            <li>Fully remote roles account for a meaningful share of the dataset.</li>
+            <li>Salary distribution is skewed toward mid-to-senior roles.</li>
+            <li>A small set of countries dominate hiring volume.</li>
+        </ul>
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
+
+
+render_page()
