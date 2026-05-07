@@ -236,6 +236,16 @@ df.show()
 
 ---
 
+# 8.1 Processed Output Location
+
+After preprocessing, the cleaned dataset is saved as parquet files:
+
+```
+data/processed/cleaned_jobs
+```
+
+---
+
 # 9. Initial Dataset Exploration
 
 The following operations will be performed to understand the dataset structure.

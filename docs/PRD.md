@@ -60,7 +60,7 @@ The project focuses on analyzing structured job market datasets related to data 
 - Real-time streaming analytics
 - Machine learning prediction models
 - Deployment to production servers
-- Web application/dashboard development
+- Public production deployment
 
 ---
 
@@ -108,7 +108,7 @@ The dataset contains information related to:
 # 7. Technologies & Tools
 
 ## Development Environment
-- Google Colab
+- VS Code (local)
 
 ## Big Data Framework
 - Apache Spark (PySpark)
@@ -122,6 +122,7 @@ The dataset contains information related to:
 ## Visualization Libraries
 - Matplotlib
 - Seaborn
+- Streamlit
 
 ## Optional Technologies
 - Spark SQL
@@ -139,7 +140,7 @@ The dataset contains information related to:
 ```text
 Kaggle Dataset
        ↓
-Google Colab Environment
+Local Python Environment
        ↓
 PySpark Data Loading
        ↓
@@ -149,7 +150,7 @@ Filtering / Grouping / Aggregation
        ↓
 Spark SQL Analysis
        ↓
-Visualization & Insights
+Streamlit Dashboard & Insights
        ↓
 Final Report & Presentation
 ````
@@ -211,7 +212,7 @@ The system should derive:
 | Performance     | Efficient handling of large datasets      |
 | Scalability     | Ability to process increasing data volume |
 | Reliability     | Accurate processing and calculations      |
-| Usability       | Easy-to-understand notebook structure     |
+| Usability       | Easy-to-understand modular app structure  |
 | Maintainability | Modular and readable code                 |
 
 ---
@@ -361,8 +362,8 @@ Possible insights include:
 
 ## Final Deliverables
 
-* Google Colab Notebook
-* PySpark Code
+* PySpark Codebase (modular)
+* Streamlit Dashboard
 * Output Screenshots
 * Final Report
 * PPT Presentation

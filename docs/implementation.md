@@ -35,11 +35,11 @@ The implementation aims to:
 
 | Component | Technology Used |
 |---|---|
-| Development Platform | Google Colab |
+| Development Platform | VS Code (local) |
 | Programming Language | Python |
 | Big Data Framework | Apache Spark (PySpark) |
 | Dataset Platform | Kaggle |
-| Visualization Libraries | Matplotlib, Seaborn |
+| Visualization Libraries | Matplotlib, Seaborn, Streamlit |
 
 ---
 
@@ -79,12 +79,12 @@ print("Path to dataset files:", path)
 
 ## Purpose
 
-Install and configure PySpark in Google Colab.
+Install and configure dependencies in a local environment.
 
 ## Implementation Code
 
-```python id="x7xk1d"
-!pip install pyspark
+```bash
+pip install -r requirements.txt
 ```
 
 ---
@@ -367,6 +367,7 @@ Represent analytical results graphically.
 
 * Matplotlib
 * Seaborn
+* Streamlit
 
 ---
 
@@ -437,6 +438,7 @@ The implementation is expected to generate insights such as:
 | Aggregation Operations | Generate summaries           | Completed |
 | Spark SQL              | SQL-based analysis           | Completed |
 | Visualization          | Create charts and graphs     | Completed |
+| Streamlit Dashboard    | UI for insights              | Completed |
 | Insight Generation     | Derive analytical findings   | Completed |
 
 ---
@@ -449,6 +451,7 @@ The implementation will produce:
 * Aggregated analytical results
 * Spark SQL outputs
 * Graphical visualizations
+* Streamlit dashboard views
 * Trend analysis insights
 
 ---

@@ -25,11 +25,11 @@ The selected technologies were chosen based on:
 |---|---|
 | Programming Language | Python |
 | Big Data Framework | Apache Spark (PySpark) |
-| Development Environment | Google Colab |
+| Development Environment | VS Code (local) |
 | Dataset Platform | Kaggle |
 | Data Processing | Spark DataFrames |
 | Query Engine | Spark SQL |
-| Visualization Libraries | Matplotlib, Seaborn |
+| Visualization Libraries | Matplotlib, Seaborn, Streamlit |
 | Dataset Download Tool | KaggleHub |
 | AI Assistance Tools | ChatGPT, GitHub Copilot, Cursor |
 
@@ -99,11 +99,11 @@ spark = SparkSession.builder \
 
 # 5. Development Environment
 
-# Google Colab
+# VS Code (Local)
 
 ## Purpose
 
-Google Colab is used as the cloud-based development environment for:
+VS Code is used as the local development environment for:
 
 * Writing code
 * Running PySpark notebooks
@@ -112,17 +112,16 @@ Google Colab is used as the cloud-based development environment for:
 
 ## Features Used
 
-* Notebook interface
-* Cloud execution
-* GPU/CPU support
-* Easy file handling
+* Python virtual environments
+* Script-based execution
+* Local Spark runs
+* Streamlit dashboard development
 
 ## Reasons for Selection
 
-* No local installation required
-* Free cloud-based environment
-* Easy collaboration
-* Supports PySpark setup
+* Full local control
+* Easier integration with OS-level dependencies
+* Works with PySpark and Streamlit
 
 ## Advantages
 
@@ -391,9 +390,10 @@ Insights & Reports
 
 ## Software Requirements
 
-* Web browser
-* Google account
-* Google Colab access
+* Python 3.10+
+* Java 17 (recommended for Spark)
+* Streamlit
+* Windows Hadoop binaries (winutils.exe + hadoop.dll) for local runs
 
 ---
 

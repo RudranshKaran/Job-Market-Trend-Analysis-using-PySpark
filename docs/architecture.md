@@ -48,10 +48,10 @@ The project architecture follows a data analytics pipeline structure consisting 
 +----------+-----------+
            |
            v
-+----------------------+
-|  Google Colab        |
-|  Environment Setup   |
-+----------+-----------+
++------------------------------+
+|  Local Python Environment    |
+|  (VS Code + venv)            |
++----------+-------------------+
            |
            v
 +----------------------+
@@ -87,8 +87,8 @@ The project architecture follows a data analytics pipeline structure consisting 
            |
            v
 +----------------------+
-|  Data Visualization  |
-|  Charts & Graphs     |
+|  Streamlit Dashboard |
+|  Charts & Insights   |
 +----------+-----------+
            |
            v
@@ -150,7 +150,7 @@ Prepare the cloud-based Big Data processing environment.
 
 ## Platform Used
 
-* Google Colab
+* Local Python environment (VS Code + venv)
 
 ## Libraries Used
 
@@ -405,6 +405,7 @@ Represent trends graphically for easier interpretation.
 
 * Matplotlib
 * Seaborn
+* Streamlit (dashboard UI)
 
 ## Planned Charts
 
@@ -463,13 +464,14 @@ Prepare final project deliverables.
 
 | Technology   | Purpose                   |
 | ------------ | ------------------------- |
-| Google Colab | Development environment   |
+| Local Python (VS Code) | Development environment   |
 | PySpark      | Big Data processing       |
 | Apache Spark | Distributed computation   |
 | Kaggle       | Dataset source            |
 | Python       | Programming language      |
 | Matplotlib   | Data visualization        |
 | Seaborn      | Statistical visualization |
+| Streamlit    | Dashboard UI              |
 
 ---
 
@@ -480,7 +482,7 @@ Dataset Collection
         ↓
 CSV Dataset
         ↓
-Google Colab
+Local Python Environment
         ↓
 PySpark Spark Session
         ↓
@@ -492,7 +494,7 @@ Filtering & Aggregation
         ↓
 Spark SQL Queries
         ↓
-Visualization
+Streamlit Dashboard
         ↓
 Insights
         ↓
